@@ -158,7 +158,6 @@
             top: -0.2em;
         }
         
-        /* Online Status စာလုံးကို ပိုသေးသွားအောင် ပြင်ဆင်ခြင်း */
         .loading-status { 
             text-align: center; 
             font-size: 0.75rem; 
@@ -230,7 +229,6 @@
         <div class="title-lottery">~ LOTTERY ~</div>
     </div>
 
-    <!-- ~ အမှတ်အသားများ ဖြုတ်ထားသည် -->
     <div id="status" class="loading-status" style="color: #ff3333;">...</div>
     
     <div class="input-row-grid">
@@ -263,7 +261,7 @@
 <script>
     let isRound = false;
     let ledgerItems = [];
-    let barcodeNumber = Math.floor(1000000000 + Math.random() * 9000000000).toString();
+    let barcodeNumber = "";
     
     let closed2D = []; 
     let closed3D = []; 
@@ -283,13 +281,9 @@
         return str.split('').join('  ');
     }
 
-    function initVoucherStyles() {
-        const now = new Date();
-        const timeStr = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
-        const dateStr = now.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
-        const dayStr = now.toLocaleDateString('en-US', { weekday: 'short' }); 
-        
-        document.getElementById('dateDisplay').innerHTML = `${timeStr} &nbsp; ${dayStr} &nbsp; ${dateStr}`;
+    // နံပါတ်အသစ်တစ်ခုကို Random ထုတ်ပေးပြီး ဘားကုဒ်ကို ပြန်ဆွဲပေးမယ့် Function
+    function generateNewBarcode() {
+        barcodeNumber = Math.floor(1000000000 + Math.random() * 9000000000).toString();
         
         JsBarcode("#barcode", barcodeNumber, { 
             format: "CODE128", 
@@ -304,6 +298,18 @@
         });
     }
 
+    function initVoucherStyles() {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
+        const dateStr = now.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        const dayStr = now.toLocaleDateString('en-US', { weekday: 'short' }); 
+        
+        document.getElementById('dateDisplay').innerHTML = `${timeStr} &nbsp; ${dayStr} &nbsp; ${dateStr}`;
+        
+        // စတင်ချိန်မှာ ဘားကုဒ် နံပါတ်တစ်ခု ထုတ်ပေးထားခြင်း
+        generateNewBarcode();
+    }
+
     async function fetchAllClosedNumbers() {
         try {
             const response = await fetch(scriptUrl);
@@ -313,12 +319,12 @@
             closed3D = data.closed3D || [];
 
             const statusEl = document.getElementById('status');
-            statusEl.innerText = "online"; // ~ ဖြုတ်ထားသည်
+            statusEl.innerText = "online"; 
             statusEl.style.color = "#2ecc71"; 
         } catch (error) {
             console.error(error);
             const statusEl = document.getElementById('status');
-            statusEl.innerText = "connection error"; // ~ ဖြုတ်ထားသည်
+            statusEl.innerText = "connection error"; 
             statusEl.style.color = "#ff3333"; 
         }
     }
@@ -393,24 +399,15 @@
     }
 
     function saveVoucher() {
+        // သိမ်းဆည်းခါနီးအချိန်မှာ ဘားကုဒ်နံပါတ်အသစ် လှမ်းပြောင်းပေးခြင်း
+        generateNewBarcode();
+
         const now = new Date();
         const timeStr = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false });
         const dateStr = now.toLocaleDateString('en-GB', { day: '2-digit', month: '2-digit', year: 'numeric' });
         const dayStr = now.toLocaleDateString('en-US', { weekday: 'short' });
         
         document.getElementById('dateDisplay').innerHTML = `${timeStr} &nbsp; ${dayStr} &nbsp; ${dateStr}`;
-        
-        JsBarcode("#barcode", barcodeNumber, { 
-            format: "CODE128", 
-            width: 2, 
-            height: 40, 
-            displayValue: true, 
-            text: generateSpacedText(barcodeNumber),
-            font: "monospace",
-            fontOptions: "bold",
-            fontSize: 10,
-            textMargin: 8
-        });
         
         html2canvas(document.getElementById('voucher')).then(canvas => {
             let link = document.createElement('a');
