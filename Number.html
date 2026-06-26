@@ -43,32 +43,39 @@
             margin-bottom: 30px; 
         }
         
+        /* Layout လွဲတာ ပြင်ဆင်ရန် အသစ်ထည့်ထားသော CSS */
+        .title-header {
+            display: inline-block;
+            position: relative;
+            text-align: center;
+        }
+
         .title-123 { 
             font-size: 2.1rem; 
             font-weight: 700; 
-            margin: 0 0 5px 0; 
+            margin: 0; 
             text-transform: uppercase; 
             letter-spacing: 1px; 
             white-space: nowrap; 
             color: #333; 
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
+            position: relative;
         }
 
         .title-123 sup {
             font-size: 0.45em;
             font-weight: normal;
             font-family: sans-serif;
-            margin-left: 4px;
+            color: #333;
+            margin-left: 2px;
             position: relative;
-            top: 0.18em;
+            top: -0.15em;
         }
         
         .title-lucky { 
             font-size: 1.1rem; 
             color: #555; 
             letter-spacing: 3px; 
+            margin-top: 5px;
         }
         
         input, button { 
@@ -183,8 +190,10 @@
 
 <div class="card">
     <div class="title-container">
-        <h1 class="title-123">ᗩᗰᕮᑎ<sup>®</sup> Number</h1>
-        <div class="title-lucky">~ LUCKY ~</div>
+        <div class="title-header">
+            <h1 class="title-123">ᗩᗰᕮᑎ<sup>®</sup> NUMBER</h1>
+        </div>
+        <div class="title-lottery">~ LOTTERY ~</div>
     </div>
 
     <div id="status" class="loading-status">...</div>
@@ -205,9 +214,9 @@
 
     <div id="voucher">
         <div class="voucher-title" style="font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; color: #333;">
-            ᗩᗰᕮᑎ<sup>®</sup> Number
+            ᗩᗰᕮᑎ<sup>®</sup> NUMBER
         </div>
-        <div style="font-size: 0.95rem; font-weight: bold; margin-bottom: 10px; color: #444;">2Dx65 | 3Dx90</div>
+        <div style="font-size: 0.95rem; font-weight: bold; margin-bottom: 10px; color: #444;">~ LOTTERY ~</div>
         <svg id="barcode"></svg>
         <table id="ledgerList" style="width:100%; border-collapse: collapse; margin-top:20px; font-size: 1.3rem; font-weight: bold;"></table>
         <div style="border-top: 2px dashed #777; margin: 20px 0;"></div>
