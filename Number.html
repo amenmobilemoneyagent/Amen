@@ -6,7 +6,6 @@
     <title>ᗩᗰᕮᑎ Number</title>
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.5/JsBarcode.all.min.js"></script>
     <style>
         body { background: #fdf6e3; color: #333; padding: 15px; font-family: 'Courier Prime', monospace; min-height: 95vh; display: flex; flex-direction: column; align-items: center; margin: 0; }
         .card { width: 100%; max-width: 380px; background: #fdf6e3; padding: 10px; box-sizing: border-box; }
@@ -19,17 +18,19 @@
         .card-btn:disabled { background: #ccc; cursor: not-allowed; }
         
         #voucher { background: #fdf6e3; padding: 20px; width: 100%; box-sizing: border-box; margin: 20px auto; text-align: center; border: 1px solid #777; box-shadow: 8px 8px 0px rgba(0,0,0,0.1); }
-        #barcode { width: 100%; height: auto; }
-        #ledgerList { width: 100%; margin-top: 5px; box-sizing: border-box; padding: 0 5px; }
         
-        .ledger-row { display: flex; align-items: baseline; font-weight: bold; padding: 3px 0; }
+        /* Voucher ID Styling */
+        .voucher-id { font-weight: bold; font-size: 1.2rem; margin: 10px 0; border: 1px solid #333; padding: 5px; display: inline-block; width: 80%; }
+        
+        #ledgerList { width: 100%; margin-top: 15px; box-sizing: border-box; padding: 0 5px; }
+        .ledger-row { display: flex; align-items: baseline; font-weight: bold; padding: 2px 0; font-size: 0.9rem; }
         .left-side { flex-shrink: 0; display: flex; align-items: center; gap: 5px; }
-        .dots { flex-grow: 1; border-bottom: 2px dotted #777; margin: 0 8px; height: 10px; }
+        .dots { flex-grow: 1; border-bottom: 1px dotted #333; margin: 0 8px; height: 10px; }
         .amount-side { flex-shrink: 0; }
         
-        .delete-btn { color: #d9534f; cursor: pointer; font-weight: bold; font-size: 1.1rem; }
-        .footer-total { font-size: 1.3rem; font-weight: bold; display: flex; justify-content: space-between; margin-top: 10px; padding: 0 5px; }
-        .footer-datetime { font-size: 0.75rem; color: #444; margin-top: 5px; }
+        .delete-btn { color: #d9534f; cursor: pointer; font-weight: bold; font-size: 0.85rem; }
+        .footer-total { font-size: 1.2rem; font-weight: bold; display: flex; justify-content: space-between; margin-top: 15px; padding: 0 5px; border-top: 2px dashed #777; padding-top: 10px; }
+        .footer-datetime { font-size: 0.7rem; color: #444; margin-top: 5px; }
         
         .custom-alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: none; justify-content: center; align-items: center; z-index: 10000; }
         .custom-alert-box { background: #fdf6e3; border: 2px solid #333; padding: 25px; max-width: 300px; text-align: center; }
@@ -62,9 +63,8 @@
             <div class="brand-name">ᗩᗰᕮᑎ®</div>
             <div class="sub-txt">Number</div>
         </div>
-        <svg id="barcode"></svg>
+        <div class="voucher-id" id="vID">ID: --------</div>
         <div id="ledgerList"></div>
-        <div style="border-top: 2px dashed #777; margin: 15px 0;"></div>
         <div class="footer-total">
             <span>Total:</span>
             <span><span id="grandTotal">0</span> Bath</span>
@@ -80,14 +80,13 @@
     let closed2D = [], closed3D = [];
     const scriptUrl = 'https://script.google.com/macros/s/AKfycbw9MFGDcEHAiuN_OuvOW9gA0In1GbHCOXFn61SSUTNrRB55biewL55d5W2IFfsolMCA/exec';
 
+    function generateID() {
+        document.getElementById('vID').innerText = "ID: " + Math.floor(100000 + Math.random() * 900000);
+    }
+
     function updateClock() {
         const now = new Date();
         document.getElementById('fullDateTime').innerText = now.toLocaleDateString() + ' | ' + now.toLocaleTimeString();
-    }
-    
-    function generateBarcode() {
-        let randomNum = Math.floor(1000000000 + Math.random() * 9000000000).toString();
-        JsBarcode("#barcode", randomNum, { format: "CODE128", width: 2, height: 40, displayValue: true, fontSize: 10 });
     }
 
     function renderLedger(isExport = false) {
@@ -107,7 +106,7 @@
     }
 
     function deleteEntry(index) { ledgerItems.splice(index, 1); renderLedger(); }
-    setInterval(updateClock, 1000); updateClock(); generateBarcode();
+    setInterval(updateClock, 1000); updateClock(); generateID();
 
     async function fetchData() {
         try { const res = await fetch(scriptUrl); const data = await res.json(); closed2D = data.closed2D || []; closed3D = data.closed3D || []; document.getElementById('status').innerText = "ONLINE"; document.getElementById('status').style.color = "#2ecc71"; } catch(e) { document.getElementById('status').innerText = "OFFLINE"; }
@@ -135,7 +134,7 @@
     }
 
     function saveVoucher() {
-        generateBarcode(); renderLedger(true);
+        generateID(); renderLedger(true);
         setTimeout(() => {
             html2canvas(document.getElementById('voucher')).then(c => { 
                 let link = document.createElement('a'); link.download = 'Voucher.jpg'; link.href = c.toDataURL(); link.click(); 
