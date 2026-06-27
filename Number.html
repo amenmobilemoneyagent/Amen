@@ -3,30 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ᗩᗰᕮᑎ Number</title>
+    <title>AMEN Number</title>
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jsbarcode/3.11.5/JsBarcode.all.min.js"></script>
     <style>
         body { background: #fdf6e3; color: #333; padding: 15px; font-family: 'Courier Prime', monospace; min-height: 95vh; display: flex; flex-direction: column; align-items: center; margin: 0; }
         .card { width: 100%; max-width: 380px; background: #fdf6e3; padding: 10px; box-sizing: border-box; }
-        
         .brand-container { text-align: center; margin-bottom: 10px; }
         .brand-name { font-size: 2.2rem; font-weight: 900; color: #000; letter-spacing: 1px; }
         .sub-txt { font-size: 0.7rem; font-weight: normal; letter-spacing: 5px; color: #333; text-transform: uppercase; margin-top: -5px; }
-        
         .input-row-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 15px; width: 100%; }
         input, button { height: 48px; width: 100%; text-align: center; font-family: 'Courier Prime', monospace; font-weight: bold; border: 1px solid #777; background: #fdf6e3; box-sizing: border-box; }
-        
         .card-btn { background: #333; color: white; border: none; cursor: pointer; width: 100%; margin-top: 5px; }
         .card-btn:disabled { background: #ccc; cursor: not-allowed; }
-        
         #voucher { background: #fdf6e3; padding: 25px 20px; width: 100%; box-sizing: border-box; margin: 30px auto 20px auto; text-align: center; border: 1px solid #777; box-shadow: 8px 8px 0px rgba(0,0,0,0.1); }
         .order-cell { text-align: left; padding: 5px; }
         .delete-btn { color: #d9534f; cursor: pointer; font-weight: bold; font-size: 1.1rem; padding-left: 10px; }
         .footer-total { font-size: 1.3rem; font-weight: bold; margin-bottom: 8px; }
         .footer-datetime { font-size: 0.75rem; color: #444; }
-        
         .custom-alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: none; justify-content: center; align-items: center; z-index: 10000; }
         .custom-alert-box { background: #fdf6e3; border: 2px solid #333; padding: 25px; max-width: 300px; text-align: center; }
     </style>
@@ -45,9 +40,7 @@
         <div class="brand-name">AMEN®</div>
         <div class="sub-txt">Number</div>
     </div>
-    
     <div id="status" style="text-align:center; font-size: 0.8rem; margin-bottom: 15px; color: #ff3333;">...</div>
-    
     <div class="input-row-grid">
         <input type="number" id="num" placeholder="No">
         <button id="roundBtn" onclick="toggleRound()">Round</button>
@@ -63,10 +56,10 @@
         <svg id="barcode"></svg>
         <table id="ledgerList" style="width:100%; margin-top:20px; font-weight: bold; border-collapse: collapse;"></table>
         <div style="border-top: 2px dashed #777; margin: 20px 0;"></div>
-        <div class="footer-total">Total: <span id="grandTotal">0</span></div>
+        <div class="footer-total">Total: <span id="grandTotal">0</span> Bath</div>
         <div id="fullDateTime" class="footer-datetime"></div>
     </div>
-    <button id="saveBtn" class="card-btn" onclick="saveVoucher()" disabled>Save as Image</button>
+    <button id="saveBtn" class="card-btn" onclick="saveVoucher()" disabled>Save as Image & Send Order</button>
 </div>
 
 <script>
@@ -94,7 +87,8 @@
         ledgerItems.forEach((item, index) => {
             list.innerHTML += `<tr><td class="order-cell">${item.n}${item.isRound?'(R)':''} <span class="delete-btn" onclick="deleteEntry(${index})">✕</span></td><td style="text-align:right">${item.amt} b</td></tr>`;
         });
-        document.getElementById('grandTotal').innerText = ledgerItems.reduce((s, i) => s + i.total, 0);
+        let totalVal = ledgerItems.reduce((s, i) => s + i.total, 0);
+        document.getElementById('grandTotal').innerText = totalVal.toLocaleString();
         document.getElementById('saveBtn').disabled = ledgerItems.length === 0;
     }
 
@@ -124,15 +118,15 @@
         let a = parseInt(document.getElementById('amount').value);
         
         if (n.length !== 2 && n.length !== 3) {
-            document.getElementById('customAlertMsg').innerText = "နံပတ်သည် 2 လုံး သို့မဟုတ် 3 လုံးသာ ဖြစ်ရပါမည်။";
+            document.getElementById('customAlertMsg').innerText = "Invalid length.";
             document.getElementById('customAlert').style.display = 'flex';
             return;
         }
 
         if (!n || !a) return;
-        if (a < 5 || a > 500) { document.getElementById('customAlertMsg').innerText = "Amount must be between 5 and 500."; document.getElementById('customAlert').style.display = 'flex'; return; }
-        if (ledgerItems.some(item => item.n === n)) { document.getElementById('customAlertMsg').innerText = "Number already added."; document.getElementById('customAlert').style.display = 'flex'; return; }
-        if ((n.length === 2 && closed2D.includes(n)) || (n.length === 3 && closed3D.includes(n))) { document.getElementById('customAlertMsg').innerText = `Number (${n}) is blocked.`; document.getElementById('customAlert').style.display = 'flex'; return; }
+        if (a < 5 || a > 500) { document.getElementById('customAlertMsg').innerText = "Amount 5-500."; document.getElementById('customAlert').style.display = 'flex'; return; }
+        if (ledgerItems.some(item => item.n === n)) { document.getElementById('customAlertMsg').innerText = "Already added."; document.getElementById('customAlert').style.display = 'flex'; return; }
+        if ((n.length === 2 && closed2D.includes(n)) || (n.length === 3 && closed3D.includes(n))) { document.getElementById('customAlertMsg').innerText = "Number blocked."; document.getElementById('customAlert').style.display = 'flex'; return; }
         
         let isPair = (n.length === 2 && n[0] === n[1]);
         let total = (isRound && !isPair) ? a * (n.length === 2 ? 2 : 6) : a;
@@ -149,6 +143,7 @@
             link.download = 'Voucher.jpg'; 
             link.href = c.toDataURL(); 
             link.click(); 
+            window.open('https://t.me/amenmobilemoneyagent', '_blank');
         });
     }
 
