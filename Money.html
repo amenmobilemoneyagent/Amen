@@ -95,10 +95,9 @@
         .t-agent { color: var(--title-red); flex: 0.24; }
         
         #status-light {
-            font-size: 0.8rem; color: #fff; margin: 15px auto 5px auto; background: rgba(0,0,0,0.3);
+            font-size: 0.8rem; color: #cc66ff; margin: 15px auto 5px auto; background: rgba(0,0,0,0.3);
             padding: 4px 12px; border-radius: 12px; display: flex; align-items: center; gap: 6px;
         }
-        .dot { width: 7px; height: 7px; background: #555; border-radius: 50%; transition: 0.3s; }
         
         .middle-section {
             width: 100%;
@@ -119,12 +118,12 @@
         input { width: 100%; border: none; background: transparent; font-size: 2.1rem; text-align: right; font-weight: 800; color: #fff; outline: none; }
         label { display: block; margin-bottom: 8px; font-weight: 800; color: #ffd700; font-size: 0.95rem; text-align: center; }
         
-        .bottom-section { padding: 5px 5px 120px 5px; text-align: center; background: transparent; width: 100%; position: relative; } /* increased padding-bottom and relative position for the text to move */
+        .bottom-section { padding: 5px 5px 120px 5px; text-align: center; background: transparent; width: 100%; position: relative; }
         .social-container { 
             display: flex; 
             justify-content: space-evenly; 
             align-items: center;
-            margin-bottom: 25px; /* slightly more gap to make space for the text */
+            margin-bottom: 25px;
             width: 100%;
         }
         .social-icon { font-size: 2.2rem; color: #fff; opacity: 0.8; transition: 0.2s; }
@@ -142,8 +141,8 @@
             color: #fff; 
             opacity: 0.5; 
             display: block; 
-            position: absolute; /* fixed position at the bottom of the section */
-            bottom: 60px; /* position it higher up within the bottom-section */
+            position: absolute;
+            bottom: 60px;
             width: 100%;
             left: 0;
         }
@@ -164,7 +163,7 @@
                     </div>
                 </div>
             </div>
-            <div id="status-light"><span class="dot"></span> <span>Connecting...</span></div>
+            <div id="status-light">Loading...</div>
         </div>
         
         <div class="middle-section">
@@ -216,10 +215,16 @@
             let isRateChanged = false;
             if (data.buyBase && parseFloat(data.buyBase) !== SETTINGS.buyBase) { SETTINGS.buyBase = parseFloat(data.buyBase); isRateChanged = true; }
             if (data.sellBase && parseFloat(data.sellBase) !== SETTINGS.sellBase) { SETTINGS.sellBase = parseFloat(data.sellBase); isRateChanged = true; }
-            document.getElementById('status-light').innerHTML = '<span class="dot" style="background:#00ff6a;box-shadow:0 0 8px #00ff6a"></span> Live';
+            
+            const statusLight = document.getElementById('status-light');
+            statusLight.innerHTML = 'Live';
+            statusLight.style.color = '#00d2ff';
+            
             if (isRateChanged && lastActiveInput) { lastActiveInput.dispatchEvent(new Event('input')); }
         } catch (e) {
-            document.getElementById('status-light').innerHTML = '<span class="dot" style="background:red"></span> Offline';
+            const statusLight = document.getElementById('status-light');
+            statusLight.innerHTML = 'Offline';
+            statusLight.style.color = '#ff4d4d';
         }
     }
 
@@ -241,10 +246,10 @@
         
         if (mmkAmount <= 100000) {
             percentage = 1.0;
-        } else if (mmkAmount >= 10000000) {
+        } else if (mmkAmount >= 150000000) {
             percentage = 0.25;
         } else {
-            let ratio = (mmkAmount - 100000) / (10000000 - 100000);
+            let ratio = (mmkAmount - 100000) / (150000000 - 100000);
             percentage = 1.0 - (ratio * (1.0 - 0.25));
         }
 
