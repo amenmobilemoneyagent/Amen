@@ -54,7 +54,7 @@
     <div class="input-row-grid">
         <input type="number" id="num" placeholder="No">
         <button id="roundBtn" onclick="toggleRound()">Round</button>
-        <input type="number" id="amount" placeholder="Amt" min="5" max="500">
+        <input type="number" id="amount" placeholder="Amt">
     </div>
     <button class="card-btn" onclick="addToLedger()">Add Entry</button>
 
@@ -68,7 +68,7 @@
         <div class="footer-container">
             <div class="footer-total">
                 <span>Total:</span>
-                <span><span id="grandTotal">0</span> Bath</span>
+                <span><span id="grandTotal">0</span> MMK</span>
             </div>
             <div id="fullDateTime" class="footer-datetime"></div>
         </div>
@@ -96,8 +96,6 @@
         const hh = String(now.getHours()).padStart(2, '0');
         const mm = String(now.getMinutes()).padStart(2, '0');
         const ss = String(now.getSeconds()).padStart(2, '0');
-        
-        // hh:mm:ss day,date,month,year ပုံစံဖြင့် ပြသခြင်း
         document.getElementById('fullDateTime').innerText = `${hh}:${mm}:${ss} ${day},${d},${m},${y}`;
     }
 
@@ -110,7 +108,7 @@
                 <div class="ledger-row">
                     <div class="left-side">${item.n}${item.isRound?'(R)':''} ${deleteBtn}</div>
                     <div class="dots"></div>
-                    <div class="amount-side">${item.amt} b</div>
+                    <div class="amount-side">${item.amt.toLocaleString()} MMK</div>
                 </div>`;
         });
         document.getElementById('grandTotal').innerText = ledgerItems.reduce((s, i) => s + i.total, 0).toLocaleString();
@@ -130,13 +128,35 @@
         document.getElementById('roundBtn').style.color = isRound ? '#fff' : '#333';
     }
 
+    function getAllPermutations(n) {
+        if (n.length < 2) return [n];
+        let perms = [];
+        for (let i = 0; i < n.length; i++) {
+            let char = n[i];
+            let remaining = n.slice(0, i) + n.slice(i + 1);
+            for (let subPerm of getAllPermutations(remaining)) {
+                perms.push(char + subPerm);
+            }
+        }
+        return [...new Set(perms)];
+    }
+
     function addToLedger() {
         let n = document.getElementById('num').value;
         let a = parseInt(document.getElementById('amount').value);
+        
+        let permutations = getAllPermutations(n);
+        let conflict = ledgerItems.find(item => permutations.includes(item.n) || (isRound && item.isRound && permutations.some(p => p === item.n)));
+        
+        if (conflict) { 
+            document.getElementById('customAlertMsg').innerText = "Number or its permutation already exists."; 
+            document.getElementById('customAlert').style.display = 'flex'; 
+            return; 
+        }
+
         if (n.length !== 2 && n.length !== 3) { document.getElementById('customAlertMsg').innerText = "Invalid length."; document.getElementById('customAlert').style.display = 'flex'; return; }
         if (!n || !a) return;
-        if (a < 5 || a > 500) { document.getElementById('customAlertMsg').innerText = "Amount 5-500."; document.getElementById('customAlert').style.display = 'flex'; return; }
-        if (ledgerItems.some(item => item.n === n)) { document.getElementById('customAlertMsg').innerText = "Already added."; document.getElementById('customAlert').style.display = 'flex'; return; }
+        if (a < 5000 || a > 100000) { document.getElementById('customAlertMsg').innerText = "Amount 5,000 - 100,000."; document.getElementById('customAlert').style.display = 'flex'; return; }
         if ((n.length === 2 && closed2D.includes(n)) || (n.length === 3 && closed3D.includes(n))) { document.getElementById('customAlertMsg').innerText = "Number blocked."; document.getElementById('customAlert').style.display = 'flex'; return; }
         
         let hasTwoDigitsSame = (n.length === 3 && (n[0] === n[1] || n[1] === n[2] || n[0] === n[2]));
