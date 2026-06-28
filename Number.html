@@ -16,35 +16,28 @@
         input, button { height: 48px; width: 100%; text-align: center; font-family: 'Courier Prime', monospace; font-weight: bold; border: 1px solid #777; background: #fdf6e3; box-sizing: border-box; }
         .card-btn { background: #333; color: white; border: none; cursor: pointer; width: 100%; margin-top: 5px; }
         .card-btn:disabled { background: #ccc; cursor: not-allowed; }
-        
         #voucher { background: #fdf6e3; padding: 20px; width: 100%; box-sizing: border-box; margin: 20px auto; text-align: center; border: 1px solid #777; box-shadow: 8px 8px 0px rgba(0,0,0,0.1); }
         .voucher-id { font-weight: bold; font-size: 1.1rem; margin: 10px auto; border: 1px solid #333; padding: 5px; display: block; width: 80%; box-sizing: border-box; }
-        
         #ledgerList { width: 80%; margin: 15px auto; box-sizing: border-box; }
         .ledger-row { display: flex; align-items: baseline; font-weight: bold; padding: 2px 0; font-size: 0.9rem; }
         .left-side { flex-shrink: 0; display: flex; align-items: center; gap: 5px; }
         .dots { flex-grow: 1; border-bottom: 1px dotted #333; margin: 0 8px; height: 10px; }
         .amount-side { flex-shrink: 0; }
-        
         .delete-btn { color: #d9534f; cursor: pointer; font-weight: bold; font-size: 0.85rem; }
-        
         .footer-container { width: 80%; margin: 0 auto; white-space: nowrap; }
         .footer-total { font-size: 1.0rem; font-weight: bold; display: flex; justify-content: space-between; margin-top: 15px; border-top: 2px dashed #777; padding-top: 10px; }
         .footer-datetime { font-size: 0.75rem; color: #444; margin-top: 5px; text-align: center; font-weight: bold; }
-        
         .custom-alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: none; justify-content: center; align-items: center; z-index: 10000; }
         .custom-alert-box { background: #fdf6e3; border: 2px solid #333; padding: 25px; max-width: 300px; text-align: center; }
     </style>
 </head>
 <body>
-
 <div id="customAlert" class="custom-alert-overlay">
     <div class="custom-alert-box">
         <div id="customAlertMsg" style="font-weight:bold; margin-bottom: 20px; line-height: 1.5;"></div>
         <button onclick="document.getElementById('customAlert').style.display='none'" style="padding: 10px 20px; cursor: pointer;">OK</button>
     </div>
 </div>
-
 <div class="card">
     <div class="brand-container">
         <div class="brand-name">ᗩᗰᕮᑎ®</div>
@@ -57,7 +50,6 @@
         <input type="number" id="amount" placeholder="Amount">
     </div>
     <button class="card-btn" onclick="addToLedger()">Add Entry</button>
-
     <div id="voucher">
         <div class="brand-container">
             <div class="brand-name">ᗩᗰᕮᑎ®</div>
@@ -75,7 +67,6 @@
     </div>
     <button id="saveBtn" class="card-btn" onclick="saveVoucher()" disabled>Save as Image & Send Order</button>
 </div>
-
 <script>
     let isRound = false;
     let ledgerItems = [];
@@ -83,7 +74,10 @@
     const scriptUrl = 'https://script.google.com/macros/s/AKfycbw9MFGDcEHAiuN_OuvOW9gA0In1GbHCOXFn61SSUTNrRB55biewL55d5W2IFfsolMCA/exec';
 
     function generateID() {
-        document.getElementById('vID').innerText = "ID: " + Math.floor(100000 + Math.random() * 900000);
+        let timestamp = Date.now().toString();
+        let randomNum = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+        let uniqueID = timestamp.slice(-6) + randomNum;
+        document.getElementById('vID').innerText = "ID: " + uniqueID;
     }
 
     function updateClock() {
@@ -188,7 +182,9 @@
         setTimeout(() => {
             html2canvas(document.getElementById('voucher')).then(c => { 
                 let link = document.createElement('a'); link.download = 'Voucher.jpg'; link.href = c.toDataURL(); link.click(); 
-                renderLedger(false); window.open('https://t.me/amenmobilemoneyagent', '_blank');
+                ledgerItems = []; 
+                renderLedger(false); 
+                window.open('https://t.me/amenmobilemoneyagent', '_blank');
             });
         }, 100);
     }
