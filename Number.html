@@ -2,71 +2,126 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>ᗩᗰᕮᑎ Number</title>
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
     <style>
-        body { background: #fdf6e3; color: #333; padding: 15px; font-family: 'Courier Prime', monospace; min-height: 95vh; display: flex; flex-direction: column; align-items: center; margin: 0; }
-        .card { width: 100%; max-width: 380px; background: #fdf6e3; padding: 10px; box-sizing: border-box; }
-        .brand-container { text-align: center; margin-bottom: 10px; }
-        .brand-name { font-size: 2.2rem; font-weight: 900; color: #000; letter-spacing: 1px; }
-        .sub-txt { font-size: 0.7rem; font-weight: normal; letter-spacing: 5px; color: #333; text-transform: uppercase; margin-top: -5px; }
-        .input-row-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 15px; width: 100%; }
-        input, button { height: 48px; width: 100%; text-align: center; font-family: 'Courier Prime', monospace; font-weight: bold; border: 1px solid #777; background: #fdf6e3; box-sizing: border-box; }
-        .card-btn { background: #333; color: white; border: none; cursor: pointer; width: 100%; margin-top: 5px; }
-        .card-btn:disabled { background: #ccc; cursor: not-allowed; }
-        #voucher { background: #fdf6e3; padding: 20px; width: 100%; box-sizing: border-box; margin: 20px auto; text-align: center; border: 1px solid #777; box-shadow: 8px 8px 0px rgba(0,0,0,0.1); }
-        .voucher-id { font-weight: bold; font-size: 1.1rem; margin: 10px auto; border: 1px solid #333; padding: 5px; display: block; width: 80%; box-sizing: border-box; }
-        #ledgerList { width: 80%; margin: 15px auto; box-sizing: border-box; }
-        .ledger-row { display: flex; align-items: baseline; font-weight: bold; padding: 2px 0; font-size: 0.9rem; }
-        .left-side { flex-shrink: 0; display: flex; align-items: center; gap: 5px; }
-        .dots { flex-grow: 1; border-bottom: 1px dotted #333; margin: 0 8px; height: 10px; }
-        .amount-side { flex-shrink: 0; }
-        .delete-btn { color: #d9534f; cursor: pointer; font-weight: bold; font-size: 0.85rem; }
-        .footer-container { width: 80%; margin: 0 auto; white-space: nowrap; }
-        .footer-total { font-size: 1.0rem; font-weight: bold; display: flex; justify-content: space-between; margin-top: 15px; border-top: 2px dashed #777; padding-top: 10px; }
-        .footer-datetime { font-size: 0.75rem; color: #444; margin-top: 5px; text-align: center; font-weight: bold; }
-        .custom-alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: none; justify-content: center; align-items: center; z-index: 10000; }
-        .custom-alert-box { background: #fdf6e3; border: 2px solid #333; padding: 25px; max-width: 300px; text-align: center; }
+        :root { 
+            --card-bg: #1c232d; --glow-blue: #00d2ff;
+            --title-yellow: #ffd700; --title-green: #00ff00; --title-red: #ff4d4d;
+        }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+        body { 
+            font-family: 'Courier Prime', monospace; display: flex; justify-content: center; align-items: center;
+            min-height: 100dvh; background: #05070a; overflow-x: hidden;
+            padding: 20px 10px;
+        }
+        .card { 
+            width: 100%; max-width: 400px; 
+            border-radius: 30px; padding: 2px; background: var(--glow-blue);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.2); display: flex;
+        }
+        .card-inner { 
+            background: var(--card-bg); border-radius: 28px; width: 100%;
+            display: flex; flex-direction: column; padding: 25px 20px; 
+        }
+        
+        .brand-container { text-align: center; margin-bottom: 15px; }
+        .brand-name { font-size: 3.5rem; color: white; font-family: 'MedievalSharp'; line-height: 1; }
+        .brand-name sup { font-size: 0.45em; font-weight: normal; font-family: sans-serif; color: #ffffff; margin-left: 4px; position: relative; top: -0.4em; }
+        .sub-txt { font-size: 0.9rem; font-weight: bold; letter-spacing: 4px; color: var(--title-yellow); text-transform: uppercase; margin-top: 5px; }
+        
+        #status { text-align: center; font-size: 0.85rem; margin-bottom: 15px; color: #ff4d4d; font-weight: bold; }
+        
+        .input-row-grid { display: grid; grid-template-columns: 1.2fr 1fr 1.2fr; gap: 10px; margin-bottom: 15px; width: 100%; }
+        .input-box { border-radius: 15px; background: rgba(255, 255, 255, 0.04); padding: 5px 10px; border: 1.5px solid rgba(0, 210, 255, 0.2); display: flex; align-items: center; }
+        
+        input { width: 100%; border: none; background: transparent; font-size: 1.2rem; text-align: center; font-weight: bold; color: #fff; outline: none; font-family: 'Courier Prime', monospace; }
+        input::placeholder { color: rgba(255,255,255,0.3); }
+        
+        button.action-btn { height: 50px; width: 100%; border-radius: 15px; font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 1rem; border: 1.5px solid rgba(0, 210, 255, 0.4); background: transparent; color: #fff; cursor: pointer; transition: 0.2s; }
+        #roundBtn { border-radius: 15px; font-family: 'Courier Prime', monospace; font-weight: bold; font-size: 1rem; border: 1.5px solid rgba(0, 210, 255, 0.2); background: rgba(255, 255, 255, 0.04); color: #fff; cursor: pointer; }
+        
+        .card-btn { height: 50px; background: var(--glow-blue); color: #05070a; font-weight: 800; border: none; border-radius: 15px; cursor: pointer; width: 100%; margin-top: 10px; font-family: 'Courier Prime', monospace; font-size: 1.05rem; text-transform: uppercase; }
+        .card-btn:disabled { background: #444; color: #888; cursor: not-allowed; box-shadow: none; }
+        
+        /* Voucher Styled for Image Export */
+        #voucher { background: #1a212b; padding: 20px; width: 100%; border-radius: 20px; margin: 25px auto; text-align: center; border: 1.5px solid rgba(0, 210, 255, 0.3); box-shadow: 0 10px 25px rgba(0,0,0,0.3); color: #fff; }
+        #voucher .brand-name { font-size: 2.8rem; }
+        .voucher-id { font-weight: bold; font-size: 1.1rem; margin: 15px auto; border: 1.5px dashed var(--glow-blue); padding: 8px; display: block; width: 90%; color: var(--glow-blue); border-radius: 10px; }
+        
+        #ledgerList { width: 90%; margin: 20px auto; }
+        .ledger-row { display: flex; align-items: baseline; font-weight: bold; padding: 5px 0; font-size: 0.95rem; color: #e0e0e0; }
+        .left-side { flex-shrink: 0; display: flex; align-items: center; gap: 8px; }
+        .dots { flex-grow: 1; border-bottom: 1.5px dotted rgba(255,255,255,0.2); margin: 0 8px; height: 10px; }
+        .amount-side { flex-shrink: 0; color: var(--title-green); }
+        .delete-btn { color: var(--title-red); cursor: pointer; font-weight: bold; font-size: 1rem; margin-left: 5px; }
+        
+        .footer-container { width: 90%; margin: 0 auto; }
+        .footer-total { font-size: 1.1rem; font-weight: bold; display: flex; justify-content: space-between; margin-top: 20px; border-top: 2px dashed rgba(255,255,255,0.2); padding-top: 12px; color: #fff; }
+        .footer-total span:last-child { color: var(--title-yellow); }
+        .footer-datetime { font-size: 0.8rem; color: #aaa; margin-top: 10px; text-align: center; font-weight: bold; }
+        
+        /* Custom Alert */
+        .custom-alert-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.75); display: none; justify-content: center; align-items: center; z-index: 10000; backdrop-filter: blur(3px); }
+        .custom-alert-box { background: var(--card-bg); border: 2px solid var(--glow-blue); border-radius: 20px; padding: 30px 25px; max-width: 320px; width: 85%; text-align: center; box-shadow: 0 0 15px rgba(0, 210, 255, 0.3); }
+        .custom-alert-box button { height: 45px; width: 100%; background: var(--glow-blue); border: none; border-radius: 12px; color: #05070a; font-weight: bold; cursor: pointer; font-family: 'Courier Prime', monospace; font-size: 1rem; }
     </style>
 </head>
 <body>
+
 <div id="customAlert" class="custom-alert-overlay">
     <div class="custom-alert-box">
-        <div id="customAlertMsg" style="font-weight:bold; margin-bottom: 20px; line-height: 1.5;"></div>
-        <button onclick="document.getElementById('customAlert').style.display='none'" style="padding: 10px 20px; cursor: pointer;">OK</button>
+        <div id="customAlertMsg" style="font-weight:bold; margin-bottom: 25px; line-height: 1.5; color: #fff;"></div>
+        <button onclick="document.getElementById('customAlert').style.display='none'">OK</button>
     </div>
 </div>
+
 <div class="card">
-    <div class="brand-container">
-        <div class="brand-name">ᗩᗰᕮᑎ®</div>
-        <div class="sub-txt">~NUMBER~</div>
-    </div>
-    <div id="status" style="text-align:center; font-size: 0.8rem; margin-bottom: 15px; color: #ff3333;">...</div>
-    <div class="input-row-grid">
-        <input type="number" id="num" placeholder="Number">
-        <button id="roundBtn" onclick="toggleRound()">Round</button>
-        <input type="number" id="amount" placeholder="Amount">
-    </div>
-    <button class="card-btn" onclick="addToLedger()">Add Entry</button>
-    <div id="voucher">
+    <div class="card-inner">
         <div class="brand-container">
-            <div class="brand-name">ᗩᗰᕮᑎ®</div>
-            <div class="sub-txt">~NUMBER~</div>
+            <div class="brand-name">ᗩᗰᕮᑎ<sup>®</sup></div>
+            <div class="sub-txt">~ NUMBER ~</div>
         </div>
-        <div class="voucher-id" id="vID">ID: --------</div>
-        <div id="ledgerList"></div>
-        <div class="footer-container">
-            <div class="footer-total">
-                <span>Total:</span>
-                <span><span id="grandTotal">0</span> MMK</span>
+        
+        <div id="status">...</div>
+        
+        <div class="input-row-grid">
+            <div class="input-box">
+                <input type="number" id="num" placeholder="Number">
             </div>
-            <div id="fullDateTime" class="footer-datetime"></div>
+            <button id="roundBtn" onclick="toggleRound()">Round</button>
+            <div class="input-box">
+                <input type="number" id="amount" placeholder="Amount">
+            </div>
         </div>
+        
+        <button class="action-btn" onclick="addToLedger()">Add Entry</button>
+        
+        <div id="voucher">
+            <div class="brand-container">
+                <div class="brand-name">ᗩᗰᕮᑎ<sup>®</sup></div>
+                <div class="sub-txt">~ NUMBER ~</div>
+            </div>
+            <div class="voucher-id" id="vID">ID: --------</div>
+            <div id="ledgerList"></div>
+            <div class="footer-container">
+                <div class="footer-total">
+                    <span>Total:</span>
+                    <span><span id="grandTotal">0</span> MMK</span>
+                </div>
+                <div id="fullDateTime" class="footer-datetime"></div>
+            </div>
+        </div>
+        
+        <button id="saveBtn" class="card-btn" onclick="saveVoucher()" disabled>Save as Image & Send Order</button>
     </div>
-    <button id="saveBtn" class="card-btn" onclick="saveVoucher()" disabled>Save as Image & Send Order</button>
 </div>
+
 <script>
     let isRound = false;
     let ledgerItems = [];
@@ -119,7 +174,7 @@
             closed2D = data.closed2D || []; 
             closed3D = data.closed3D || []; 
             document.getElementById('status').innerText = "Live"; 
-            document.getElementById('status').style.color = "#2ecc71"; 
+            document.getElementById('status').style.color = "#00d2ff"; 
         } catch(e) { 
             document.getElementById('status').innerText = "OFFLINE"; 
         }
@@ -127,8 +182,9 @@
 
     function toggleRound() {
         isRound = !isRound;
-        document.getElementById('roundBtn').style.background = isRound ? '#333' : '#fdf6e3';
-        document.getElementById('roundBtn').style.color = isRound ? '#fff' : '#333';
+        document.getElementById('roundBtn').style.background = isRound ? 'var(--glow-blue)' : 'rgba(255, 255, 255, 0.04)';
+        document.getElementById('roundBtn').style.color = isRound ? '#05070a' : '#fff';
+        document.getElementById('roundBtn').style.borderColor = isRound ? 'var(--glow-blue)' : 'rgba(0, 210, 255, 0.2)';
     }
 
     function getAllPermutations(n) {
