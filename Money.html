@@ -3,134 +3,136 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>ᗩᗰᕮᑎ Money</title>
-    <meta name="description" content="">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="ᗩᗰᕮᑎ Money">
-    <meta property="og:description" content="">
-    <meta property="og:url" content="">
-    <meta property="og:image" content="">
+    <title>ᗩᗰᕮᑎ Money App</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
         :root { 
-            --card-bg: #1c232d; --glow-blue: #00d2ff;
-            --title-yellow: #ffff00; --title-green: #00ff00; --title-red: #ff0000;
-            --messenger-clr: #0084ff; --viber-clr: #7360f2; --telegram-clr: #229ED9; --whatsapp-clr: #25D366;
-            --line-clr: #06C755; --neon-border: #00d2ff; --focus-border: #ffd700;
+            --card-bg: #1c232d; 
+            --glow-blue: #00d2ff;
+            --title-yellow: #ffff00; 
+            --title-green: #00ff00; 
+            --title-red: #ff0000;
+            --messenger-clr: #0084ff; 
+            --viber-clr: #7360f2; 
+            --telegram-clr: #229ED9; 
+            --whatsapp-clr: #25D366;
+            --line-clr: #06C755; 
+            --neon-border: #00d2ff; 
+            --focus-border: #ffd700;
         }
+        
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
+        
         body { 
-            font-family: 'Segoe UI', sans-serif; display: flex; justify-content: center; align-items: center;
-            height: 100dvh; background: #05070a; overflow: hidden;
+            font-family: 'Segoe UI', sans-serif; 
+            background: #05070a; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100dvh;
+            width: 100vw;
             padding: env(safe-area-inset-top) 10px env(safe-area-inset-bottom) 10px;
         }
+
         .card { 
-            width: 100%; max-width: 400px; height: 96%; max-height: 780px; 
-            border-radius: 30px; padding: 2px; background: var(--glow-blue);
-            box-shadow: 0 0 20px rgba(0, 210, 255, 0.2); display: flex;
+            width: 100%; 
+            max-width: 420px; 
+            height: 96%; 
+            max-height: 780px; 
+            border-radius: 30px; 
+            padding: 2px; 
+            background: var(--glow-blue);
+            box-shadow: 0 0 20px rgba(0, 210, 255, 0.2); 
+            display: flex;
         }
+        
         .card-inner { 
-            background: var(--card-bg); border-radius: 28px; width: 100%; height: 100%;
-            display: flex; flex-direction: column; justify-content: space-between; overflow: hidden;
-            padding: calc(15px + env(safe-area-inset-top)) 15px calc(15px + env(safe-area-inset-bottom)) 15px; 
+            background: var(--card-bg); 
+            border-radius: 28px; 
+            width: 100%; 
+            height: 100%;
+            display: flex; 
+            flex-direction: column; 
+            overflow-y: auto; 
+            padding: 20px 15px;
+            justify-content: space-evenly;
         }
-        .top-section { width: 100%; display: flex; flex-direction: column; align-items: center; }
-        .header { padding: 5px 10px; text-align: center; }
-        .header-container { display: inline-block; text-align: left; position: relative; }
-        .header h1 { 
-            font-size: 3.8rem; color: white; font-family: 'MedievalSharp'; 
-            margin: 0; line-height: 1; display: flex; align-items: flex-start; position: relative;
-        }
-        .header h1 sup { 
-            font-size: 0.45em; font-weight: normal; font-family: sans-serif; 
-            color: #ffffff; margin-left: 4px; position: relative; top: 0.18em; 
-        }
-        .agent-title { 
-            font-size: 0.95rem; margin-top: 6px; font-weight: bold; width: 100%;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .t-mobile { color: var(--title-yellow); } 
-        .t-money { color: var(--title-green); } 
-        .t-agent { color: var(--title-red); }
-        #status-light {
-            font-size: 0.8rem; color: #cc66ff; margin: 10px auto 0 auto; background: rgba(0,0,0,0.3);
-            padding: 4px 12px; border-radius: 12px; display: flex; align-items: center; gap: 6px;
-        }
-        .middle-section { width: 100%; flex-grow: 1; display: flex; flex-direction: column; justify-content: center; padding: 15px 0; }
-        .tabs { display: flex; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 20px; }
+
+        /* MONEY APP STYLES */
+        .money-app { font-family: 'Courier Prime', monospace; }
+        .money-top-section { width: 100%; display: flex; flex-direction: column; align-items: center; }
+        .money-middle-section { width: 100%; display: flex; flex-direction: column; justify-content: center; padding: 10px 0; }
+        .money-bottom-section { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 18px; padding-bottom: 5px; }
+        
+        .header-container { display: inline-block; text-align: left; position: relative; margin: 0 auto;}
+        .money-app h1 { font-size: 3.8rem; color: white; font-family: 'MedievalSharp'; margin: 0; line-height: 1; display: flex; align-items: flex-start; }
+        .money-app h1 sup { font-size: 0.45em; font-weight: normal; font-family: sans-serif; color: #ffffff; margin-left: 4px; position: relative; top: 0.18em; }
+        .agent-title { font-size: 0.95rem; margin-top: 6px; font-weight: bold; width: 100%; display: flex; justify-content: space-between; }
+        .t-mobile { color: var(--title-yellow); } .t-money { color: var(--title-green); } .t-agent { color: var(--title-red); }
+        
+        #status-light { font-size: 0.8rem; color: #cc66ff; margin: 10px auto 0 auto; background: rgba(0,0,0,0.3); padding: 4px 12px; border-radius: 12px; display: flex; align-items: center; gap: 6px; }
+        
+        .tabs { display: flex; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 30px;}
         .tab { flex: 1; padding: 12px 5px; text-align: center; font-weight: 800; color: rgba(255,255,255,0.3); font-size: 1rem; cursor: pointer; }
         .tab.active { color: #ffd700; border-bottom: 3px solid #ffd700; }
-        .market-container { padding: 0 10px; }
-        .content { display: none; } 
-        .content.active { display: block; }
-        .input-box { 
-            border-radius: 16px; background: rgba(0, 210, 255, 0.02); margin-bottom: 18px; 
-            padding: 10px 16px; border: 2px solid var(--neon-border); 
-            box-shadow: 0 0 10px rgba(0, 210, 255, 0.25), inset 0 0 5px rgba(0, 210, 255, 0.1);
-            transition: all 0.2s ease-in-out;
-        }
-        .input-box:focus-within, .input-box.highlighted {
-            border-color: var(--focus-border);
-            box-shadow: 0 0 16px rgba(255, 215, 0, 0.5), inset 0 0 8px rgba(255, 215, 0, 0.15);
-            background: rgba(255, 215, 0, 0.01);
-        }
-        input { width: 100%; border: none; background: transparent; font-size: 2.1rem; text-align: right; font-weight: 800; color: #fff; outline: none; }
-        label { display: block; margin-bottom: 8px; font-weight: 800; color: #ffd700; font-size: 0.95rem; text-align: center; }
-        .bottom-section { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 15px; padding-bottom: 5px; }
+        
+        .content { display: none; } .content.active { display: block; }
+        .money-input-box { border-radius: 16px; background: rgba(0, 210, 255, 0.02); margin-bottom: 25px; padding: 12px 16px; border: 2px solid var(--neon-border); transition: all 0.2s; }
+        .money-input-box:focus-within, .money-input-box.highlighted { border-color: var(--focus-border); box-shadow: 0 0 16px rgba(255, 215, 0, 0.5); background: rgba(255, 215, 0, 0.01); }
+        .money-input-box input { width: 100%; border: none; background: transparent; font-size: 2.1rem; text-align: right; font-weight: 800; color: #fff; outline: none; font-family: 'Courier Prime', monospace; }
+        .money-app label { display: block; margin-bottom: 12px; font-weight: 800; color: #ffd700; font-size: 1rem; text-align: center; }
+        
         .social-container { display: flex; justify-content: space-evenly; align-items: center; width: 100%; }
         .social-icon { font-size: 2.2rem; color: #fff; opacity: 0.8; transition: 0.2s; }
         .social-icon:hover { opacity: 1; transform: scale(1.1); }
-        .messenger:hover { color: var(--messenger-clr); }
-        .viber:hover { color: var(--viber-clr); }
-        .telegram:hover { color: var(--telegram-clr); }
-        .whatsapp:hover { color: var(--whatsapp-clr); }
-        .line:hover { color: var(--line-clr); }
+        .messenger:hover { color: var(--messenger-clr); } .viber:hover { color: var(--viber-clr); } .telegram:hover { color: var(--telegram-clr); } .whatsapp:hover { color: var(--whatsapp-clr); } .line:hover { color: var(--line-clr); }
         .footer-clean { font-size: 0.85rem; font-weight: bold; color: #fff; opacity: 0.5; display: block; text-align: center; width: 100%; }
     </style>
 </head>
 <body>
 
-<div class="card">
+<div class="card money-app">
     <div class="card-inner">
-        <div class="top-section">
-            <div class="header">
-                <div class="header-container">
-                    <h1>ᗩᗰᕮᑎ<sup>®</sup></h1>
-                    <div class="agent-title">
-                        <span class="t-mobile">M</span><span class="t-mobile">o</span><span class="t-mobile">b</span><span class="t-mobile">i</span><span class="t-mobile">l</span><span class="t-mobile">e</span>
-                        <span class="t-money">M</span><span class="t-money">o</span><span class="t-money">n</span><span class="t-money">e</span><span class="t-money">y</span>
-                        <span class="t-agent">A</span><span class="t-agent">g</span><span class="t-agent">e</span><span class="t-agent">n</span><span class="t-agent">t</span>
-                    </div>
+        
+        <div class="money-top-section">
+            <div class="header-container">
+                <h1>ᗩᗰᕮᑎ<sup>®</sup></h1>
+                <div class="agent-title">
+                    <span class="t-mobile">M</span><span class="t-mobile">o</span><span class="t-mobile">b</span><span class="t-mobile">i</span><span class="t-mobile">l</span><span class="t-mobile">e</span>
+                    <span class="t-money">M</span><span class="t-money">o</span><span class="t-money">n</span><span class="t-money">e</span><span class="t-money">y</span>
+                    <span class="t-agent">A</span><span class="t-agent">g</span><span class="t-agent">e</span><span class="t-agent">n</span><span class="t-agent">t</span>
                 </div>
             </div>
             <div id="status-light">Loading</div>
         </div>
         
-        <div class="middle-section">
+        <div class="money-middle-section">
             <div class="tabs">
                 <div class="tab active" onclick="openTab(event, 'buy')">ဘတ်ပေး_ကျပ်ယူ</div>
                 <div class="tab" onclick="openTab(event, 'sell')">ကျပ်ပေး_ဘတ်ယူ</div>
             </div>
 
-            <div class="market-container">
+            <div style="padding: 0 10px;">
                 <div id="buy" class="content active">
                     <label>ဘတ်ငွေပမာဏ {THB}</label>
-                    <div class="input-box"><input type="text" id="thbBuy" placeholder="0" inputmode="decimal"></div>
+                    <div class="money-input-box"><input type="text" id="thbBuy" placeholder="0" inputmode="decimal"></div>
                     <label>ကျပ်ငွေပမာဏ {MMK}</label>
-                    <div class="input-box"><input type="text" id="mmkBuy" placeholder="0" inputmode="decimal"></div>
+                    <div class="money-input-box"><input type="text" id="mmkBuy" placeholder="0" inputmode="decimal"></div>
                 </div>
                 
                 <div id="sell" class="content">
                     <label>ကျပ်ငွေပမာဏ {MMK}</label>
-                    <div class="input-box"><input type="text" id="mmkSell" placeholder="0" inputmode="decimal"></div>
+                    <div class="money-input-box"><input type="text" id="mmkSell" placeholder="0" inputmode="decimal"></div>
                     <label>ဘတ်ငွေပမာဏ {THB}</label>
-                    <div class="input-box"><input type="text" id="thbSell" placeholder="0" inputmode="decimal"></div>
+                    <div class="money-input-box"><input type="text" id="thbSell" placeholder="0" inputmode="decimal"></div>
                 </div>
             </div>
         </div>
 
-        <div class="bottom-section">
+        <div class="money-bottom-section">
             <div class="social-container">
                 <a href="https://m.me/MobileMoneyAgent" class="social-icon messenger"><i class="fa-brands fa-facebook-messenger"></i></a>
                 <a href="viber://chat?number=%2B66947841411" class="social-icon viber"><i class="fa-brands fa-viber"></i></a>
@@ -140,45 +142,32 @@
             </div>
             <span class="footer-clean">Mobile Money Agent © 2026</span>
         </div>
+
     </div>
 </div>
 
 <script>
-    const API_URL = 'https://script.google.com/macros/s/AKfycbzELl1tVZ-b5nDWUmqdb1j13Vo_SSlSYUdPhL0NO9zfmRC0mZmqA8X9BEmFHoIk-faTYQ/exec';
+    const MONEY_API = 'https://script.google.com/macros/s/AKfycbzELl1tVZ-b5nDWUmqdb1j13Vo_SSlSYUdPhL0NO9zfmRC0mZmqA8X9BEmFHoIk-faTYQ/exec';
     let SETTINGS = { buyBase: 780, sellBase: 760 };
     let lastActiveInput = null;
 
-    async function syncData() {
+    async function syncMoneyData() {
         try {
-            const res = await fetch(`${API_URL}?cache=${Date.now()}`);
+            const res = await fetch(`${MONEY_API}?cache=${Date.now()}`);
             const data = await res.json();
             let isRateChanged = false;
-            
-            if (data.buyBase && parseFloat(data.buyBase) !== SETTINGS.buyBase) { 
-                SETTINGS.buyBase = parseFloat(data.buyBase); 
-                isRateChanged = true; 
-            }
-            if (data.sellBase && parseFloat(data.sellBase) !== SETTINGS.sellBase) { 
-                SETTINGS.sellBase = parseFloat(data.sellBase); 
-                isRateChanged = true; 
-            }
+            if (data.buyBase && parseFloat(data.buyBase) !== SETTINGS.buyBase) { SETTINGS.buyBase = parseFloat(data.buyBase); isRateChanged = true; }
+            if (data.sellBase && parseFloat(data.sellBase) !== SETTINGS.sellBase) { SETTINGS.sellBase = parseFloat(data.sellBase); isRateChanged = true; }
             
             const statusLight = document.getElementById('status-light');
-            statusLight.innerHTML = 'Live';
-            statusLight.style.color = '#00d2ff';
-            
-            if (isRateChanged && lastActiveInput) { 
-                lastActiveInput.dispatchEvent(new Event('input')); 
-            }
+            statusLight.innerHTML = 'Live'; statusLight.style.color = '#00ff00';
+            if (isRateChanged && lastActiveInput) { lastActiveInput.dispatchEvent(new Event('input')); }
         } catch (e) {
             const statusLight = document.getElementById('status-light');
-            statusLight.innerHTML = 'Offline';
-            statusLight.style.color = '#ff4d4d';
+            statusLight.innerHTML = 'Offline'; statusLight.style.color = '#ff4d4d';
         }
     }
-
-    syncData();
-    setInterval(syncData, 1000);
+    syncMoneyData(); setInterval(syncMoneyData, 1000);
 
     const format = (v, isTyping = false) => {
         if (!v && v !== 0) return "";
@@ -187,74 +176,45 @@
         if (parts.length > 1) return parts[0] + "." + parts[1];
         return parts[0] + (isTyping && v.toString().includes(".") ? "." : "");
     };
-    
     const raw = (v) => parseFloat(v.toString().replace(/,/g, "")) || 0;
 
     function getSmoothMultiplier(mmkAmount, isBuyTab) {
         let percentage = 1.0;
-        if (mmkAmount <= 100000) {
-            percentage = 1.0;
-        } else if (mmkAmount >= 150000000) {
-            percentage = 0.25;
-        } else {
+        if (mmkAmount <= 100000) percentage = 1.0;
+        else if (mmkAmount >= 150000000) percentage = 0.25;
+        else {
             let ratio = (mmkAmount - 100000) / (150000000 - 100000);
             percentage = 1.0 - (ratio * (1.0 - 0.25));
         }
-        let rateFactor = percentage / 100;
-        return isBuyTab ? (1.0 + rateFactor) : (1.0 - rateFactor);
+        return isBuyTab ? (1.0 + (percentage/100)) : (1.0 - (percentage/100));
     }
 
     function updateGlow(inputEl, hasValue) {
         let parentContent = inputEl.closest('.content');
         if (parentContent) {
-            let boxes = parentContent.querySelectorAll('.input-box');
-            boxes.forEach(box => {
-                if (hasValue) {
-                    box.classList.add('highlighted');
-                } else {
-                    box.classList.remove('highlighted');
-                }
+            parentContent.querySelectorAll('.money-input-box').forEach(box => {
+                hasValue ? box.classList.add('highlighted') : box.classList.remove('highlighted');
             });
         }
     }
     
     function handleTHBInput(inputEl, outputId, baseRate, isBuy) {
-        lastActiveInput = inputEl;
-        let thb = raw(inputEl.value); 
+        lastActiveInput = inputEl; let thb = raw(inputEl.value); 
         inputEl.value = format(inputEl.value, true);
-        
-        if (!inputEl.value) {
-            document.getElementById(outputId).value = "";
-            updateGlow(inputEl, false);
-            return;
-        }
+        if (!inputEl.value) { document.getElementById(outputId).value = ""; updateGlow(inputEl, false); return; }
         updateGlow(inputEl, true);
-        
         let roughMMK = (thb / baseRate) * 100000;
-        let multiplier = getSmoothMultiplier(roughMMK, isBuy);
-        let baseTHB = thb / multiplier;
-        let calculatedMMK = (baseTHB / baseRate) * 100000;
-        
-        document.getElementById(outputId).value = format(Math.floor(calculatedMMK));
+        let baseTHB = thb / getSmoothMultiplier(roughMMK, isBuy);
+        document.getElementById(outputId).value = format(Math.floor((baseTHB / baseRate) * 100000));
     }
 
     function handleMMKInput(inputEl, outputId, baseRate, isBuy) {
-        lastActiveInput = inputEl;
-        let mmk = raw(inputEl.value); 
+        lastActiveInput = inputEl; let mmk = raw(inputEl.value); 
         inputEl.value = format(inputEl.value, true);
-        
-        if (!inputEl.value) {
-            document.getElementById(outputId).value = "";
-            updateGlow(inputEl, false);
-            return;
-        }
+        if (!inputEl.value) { document.getElementById(outputId).value = ""; updateGlow(inputEl, false); return; }
         updateGlow(inputEl, true);
-        
         let baseTHB = (mmk / 100000) * baseRate;
-        let multiplier = getSmoothMultiplier(mmk, isBuy);
-        let finalTHB = baseTHB * multiplier;
-        
-        document.getElementById(outputId).value = format(parseFloat(finalTHB.toFixed(2)));
+        document.getElementById(outputId).value = format(parseFloat((baseTHB * getSmoothMultiplier(mmk, isBuy)).toFixed(2)));
     }
 
     document.getElementById('thbBuy').oninput = function() { handleTHBInput(this, 'mmkBuy', SETTINGS.buyBase, true); };
@@ -263,10 +223,7 @@
     document.getElementById('thbSell').oninput = function() { handleTHBInput(this, 'mmkSell', SETTINGS.sellBase, false); };
 
     function openTab(e, name) {
-        document.querySelectorAll('.content').forEach(c => {
-            c.classList.remove('active');
-            c.querySelectorAll('.input-box').forEach(b => b.classList.remove('highlighted'));
-        });
+        document.querySelectorAll('.content').forEach(c => { c.classList.remove('active'); c.querySelectorAll('.money-input-box').forEach(b => b.classList.remove('highlighted')); });
         document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
         document.getElementById(name).classList.add('active');
         e.currentTarget.classList.add('active');
