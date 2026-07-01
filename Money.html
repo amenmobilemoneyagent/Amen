@@ -67,27 +67,27 @@
         /* Row 1: Logo Row */
         .logo-row {
             width: 100%;
-            max-width: 250px;
+            max-width: 290px;
             text-align: center;
         }
         
         .money-app h1 { 
-            font-size: 2.8rem; 
-            color: #334155; 
+            font-size: 3.8rem; 
+            color: #273549; 
             font-family: 'MedievalSharp'; 
             margin: 0; 
-            line-height: 1; 
-            letter-spacing: 4px; 
-            margin-right: -4px;
+            line-height: 0.95; 
+            letter-spacing: 2px; 
             text-shadow: 1px 1px 0px #ffffff;
         }
         
         .agent-title { 
-            font-size: 0.58rem; 
-            margin-top: 6px; 
+            font-size: 0.65rem; 
+            margin-top: 8px; 
             font-weight: 700; 
             display: flex; 
-            justify-content: space-between; 
+            justify-content: center; 
+            gap: 7px; 
             text-transform: uppercase; 
             color: var(--title-clr);
             width: 100%;
@@ -123,13 +123,13 @@
             text-transform: uppercase;
         }
         
-        /* Row 3: ပြင်ဆင်ထားသော Tabs ခလုတ်စတိုင်လ်အသစ် */
+        /* Row 3: Tabs Control */
         .tabs { 
             width: 100%;
             display: flex; 
             background: #ebf0f6; 
             padding: 5px; 
-            border-radius: 50px; /* ပိုမိုဝိုင်းဝန်းသော Pill ပုံစံ */
+            border-radius: 50px; 
             box-shadow: inset 3px 3px 6px #cbd5e1, inset -3px -3px 6px #ffffff;
         }
         .tab { 
@@ -140,21 +140,21 @@
             color: #64748b; 
             font-size: 0.78rem; 
             cursor: pointer; 
-            border-radius: 50px; /* အတွင်းခလုတ်ကိုလည်း ဝိုင်းဝန်းပေးထားသည် */
+            border-radius: 50px; 
             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
             letter-spacing: 0.3px;
         }
         .tab:active {
-            transform: scale(0.95); /* ခလုတ်နှိပ်လိုက်လျှင် ပိန်ဝင်သွားမည့် Effect */
+            transform: scale(0.95);
         }
         .tab.active { 
             color: #ffffff; 
-            background: linear-gradient(135deg, #0084ff, #0052d4); /* ပိုမိုတောက်ပပြတ်သားသော Premium Blue Gradient */
+            background: linear-gradient(135deg, #0084ff, #0052d4); 
             box-shadow: 0 4px 12px rgba(0, 82, 212, 0.3); 
             text-shadow: 0 1px 2px rgba(0,0,0,0.1);
         }
         
-        /* Row 4: Inputs Container */
+        /* Row 4: Inputs Area */
         .inputs-container {
             width: 100%;
         }
@@ -226,7 +226,8 @@
         /* Auto-Scaling System */
         @media (max-height: 650px) {
             .card-inner { padding: 20px 20px; }
-            .money-app h1 { font-size: 2.3rem; }
+            .money-app h1 { font-size: 2.8rem; }
+            .agent-title { font-size: 0.55rem; margin-top: 4px; gap: 2px; }
             .clock-time { font-size: 1.4rem; }
             .tab { padding: 9px 2px; font-size: 0.72rem; }
             .content.active { gap: 12px; }
