@@ -60,34 +60,52 @@
             display: flex; 
             flex-direction: column; 
             overflow-y: auto; 
-            padding: 35px 24px 25px 24px; 
+            padding: 30px 24px 20px 24px; 
             justify-content: space-between;
             box-shadow: inset 5px 5px 10px #e6eef8, inset -5px -5px 10px #ffffff;
         }
 
         .money-top-section { width: 100%; display: flex; flex-direction: column; align-items: center; }
-        .money-middle-section { width: 100%; display: flex; flex-direction: column; justify-content: center; padding: 5px 0; }
-        .money-bottom-section { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 20px; padding-bottom: 5px; }
+        .money-middle-section { width: 100%; display: flex; flex-direction: column; justify-content: center; padding: 2px 0; }
+        .money-bottom-section { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 18px; padding-bottom: 5px; }
         
-        .header-container { display: inline-block; text-align: left; position: relative; margin: 0 auto; }
-        
-        .logo-wrapper { display: flex; align-items: flex-start; justify-content: flex-start; }
-        
-        .money-app h1 { 
-            font-size: 4.8rem; 
-            color: var(--title-clr); 
-            font-family: 'MedievalSharp'; 
-            margin: 0; 
-            line-height: 0.95; 
-            letter-spacing: 2px; 
-            filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.1)); 
+        .header-container { 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            width: 100%;
+            max-width: 280px;
+            margin: 0 auto; 
         }
         
-        .money-app h1 sup { font-size: 0.2em; font-weight: normal; font-family: 'Courier Prime', monospace; color: #94a3b8; margin-left: -10px; position: relative; top: -1.5em; }
+        .logo-wrapper { 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center; 
+            background: #e6eef8;
+            padding: 16px 20px 12px 20px;
+            border-radius: 20px;
+            box-shadow: inset 4px 4px 8px #cbd5e1, inset -4px -4px 8px #ffffff;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .money-app h1 { 
+            font-size: 3.8rem; 
+            color: #334155; 
+            font-family: 'MedievalSharp'; 
+            margin: 0; 
+            line-height: 1; 
+            letter-spacing: 4px; 
+            margin-right: -4px;
+            text-shadow: 1px 1px 0px #ffffff, -1px -1px 0px #1e293b;
+            text-align: center;
+        }
         
         .agent-title { 
-            font-size: 0.65rem; 
-            margin-top: 8px; 
+            font-size: 0.62rem; 
+            margin-top: 10px; 
             font-weight: 700; 
             display: flex; 
             justify-content: space-between; 
@@ -96,22 +114,41 @@
             color: var(--title-clr);
             width: 100%;
             white-space: nowrap;
+            box-sizing: border-box;
+            padding: 0 2px;
         }
 
-        /* Custom text colors for MOBILE MONEY AGENT */
-        .agent-title .clr-mobile { color: #ca8a04; } /* နောက်ခံအလင်းမှာ မြင်သာစေမည့် ရွှေဝါရောင် */
-        .agent-title .clr-money { color: #06C755; }  /* App နဲ့ လိုက်ဖက်မည့် အစိမ်းရောင် */
-        .agent-title .clr-agent { color: #dc2626; }  /* တောက်ပသော အနီရောင် */
+        .agent-title .clr-mobile { color: #ca8a04; }
+        .agent-title .clr-money { color: #06C755; }
+        .agent-title .clr-agent { color: #dc2626; }
         
-        #status-light { font-size: 0.8rem; color: #64748b; margin: 22px auto 0 auto; background: #edf2f7; border-radius: 20px; padding: 6px 20px; display: flex; align-items: center; gap: 8px; font-weight: bold; letter-spacing: 1px; box-shadow: 3px 3px 6px #d1d9e6, inset -2px -2px 5px #ffffff; font-family: 'Courier Prime', monospace; }
+        #status-light { 
+            font-size: 0.82rem; 
+            color: #0d9488; 
+            margin: 18px auto; 
+            background: #edf2f7; 
+            border-radius: 16px; 
+            padding: 8px 24px; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center;
+            gap: 2px;
+            font-weight: bold; 
+            letter-spacing: 1px; 
+            box-shadow: 3px 3px 6px #d1d9e6, inset -2px -2px 5px #ffffff; 
+            font-family: 'Courier Prime', monospace; 
+            line-height: 1.3;
+            text-align: center;
+        }
         
-        .tabs { display: flex; background: #eef2f7; padding: 6px; border-radius: 20px; margin-bottom: 25px; box-shadow: inset 4px 4px 8px #d1d9e6, inset -4px -4px 8px #ffffff; }
+        .tabs { display: flex; background: #eef2f7; padding: 6px; border-radius: 20px; margin-bottom: 20px; box-shadow: inset 4px 4px 8px #d1d9e6, inset -4px -4px 8px #ffffff; }
         .tab { flex: 1; padding: 14px 5px; text-align: center; font-weight: 700; color: #64748b; font-size: 0.85rem; cursor: pointer; border-radius: 15px; transition: all 0.3s ease; font-family: 'Courier Prime', monospace; }
         .tab.active { color: #ffffff; background: linear-gradient(135deg, var(--glow-blue), var(--glow-purple)); box-shadow: 0 10px 20px rgba(0, 114, 255, 0.2), 4px 4px 10px #d1d9e6; }
         
         .content { display: none; } .content.active { display: block; }
         
-        .money-input-box { border-radius: 24px; background: #f0f4f9; margin-bottom: 22px; padding: 16px 20px; border: 1px solid rgba(255,255,255,0.8); transition: all 0.3s ease; box-shadow: 6px 6px 12px #d1d9e6, -6px -6px 12px #ffffff; }
+        .money-input-box { border-radius: 24px; background: #f0f4f9; margin-bottom: 18px; padding: 16px 20px; border: 1px solid rgba(255,255,255,0.8); transition: all 0.3s ease; box-shadow: 6px 6px 12px #d1d9e6, -6px -6px 12px #ffffff; }
         .money-input-box:focus-within, .money-input-box.highlighted { border-color: var(--focus-border); box-shadow: inset 4px 4px 8px #d1d9e6, inset -4px -4px 8px #ffffff; background: #f8fafc; }
         
         .money-input-box input { 
@@ -125,7 +162,7 @@
             outline: none; 
             font-family: 'Courier Prime', monospace;
         }
-        .money-app label { display: block; margin-bottom: 12px; font-weight: 700; color: #64748b; font-size: 0.8rem; text-align: left; padding-left: 6px; letter-spacing: 0.5px; font-family: 'Courier Prime', monospace; text-transform: uppercase; }
+        .money-app label { display: block; margin-bottom: 8px; font-weight: 700; color: #64748b; font-size: 0.8rem; text-align: left; padding-left: 6px; letter-spacing: 0.5px; font-family: 'Courier Prime', monospace; text-transform: uppercase; }
         
         .social-container { display: flex; justify-content: space-evenly; align-items: center; width: 100%; background: #eef2f7; padding: 14px 10px; border-radius: 24px; box-shadow: inset 4px 4px 8px #d1d9e6, inset -4px -4px 8px #ffffff; }
         
@@ -171,13 +208,12 @@
             <div class="header-container">
                 <div class="logo-wrapper">
                     <h1>ᗩᗰᕮᑎ</h1>
-                    <h1><sup>®</sup></h1>
-                </div>
-                <div class="agent-title">
-                    <span class="clr-mobile">M</span><span class="clr-mobile">O</span><span class="clr-mobile">B</span><span class="clr-mobile">I</span><span class="clr-mobile">L</span><span class="clr-mobile">E</span><span class="clr-money">M</span><span class="clr-money">O</span><span class="clr-money">N</span><span class="clr-money">E</span><span class="clr-money">Y</span><span class="clr-agent">A</span><span class="clr-agent">G</span><span class="clr-agent">E</span><span class="clr-agent">N</span><span class="clr-agent">T</span>
+                    <div class="agent-title">
+                        <span class="clr-mobile">M</span><span class="clr-mobile">O</span><span class="clr-mobile">B</span><span class="clr-mobile">I</span><span class="clr-mobile">L</span><span class="clr-mobile">E</span><span class="clr-money">M</span><span class="clr-money">O</span><span class="clr-money">N</span><span class="clr-money">E</span><span class="clr-money">Y</span><span class="clr-agent">A</span><span class="clr-agent">G</span><span class="clr-agent">E</span><span class="clr-agent">N</span><span class="clr-agent">T</span>
+                    </div>
                 </div>
             </div>
-            <div id="status-light">Loading</div>
+            <div id="status-light">00:00:00<br>00,00,00</div>
         </div>
         
         <div class="money-middle-section">
@@ -221,24 +257,41 @@
     const MONEY_API = 'https://script.google.com/macros/s/AKfycbzELl1tVZ-b5nDWUmqdb1j13Vo_SSlSYUdPhL0NO9zfmRC0mZmqA8X9BEmFHoIk-faTYQ/exec';
     let SETTINGS = { buyBase: 780, sellBase: 760 };
     let lastActiveInput = null;
+    let apiOnline = true;
+
+    function updateLiveClock() {
+        const now = new Date();
+        const dd = String(now.getDate()).padStart(2, '0');
+        const mm = String(now.getMonth() + 1).padStart(2, '0');
+        const yy = String(now.getFullYear()).slice(-2);
+        const hh = String(now.getHours()).padStart(2, '0');
+        const min = String(now.getMinutes()).padStart(2, '0');
+        const ss = String(now.getSeconds()).padStart(2, '0');
+        
+        const statusLight = document.getElementById('status-light');
+        statusLight.innerHTML = `${hh}:${min}:${ss}<br>${dd},${mm},${yy}`;
+        statusLight.style.color = apiOnline ? '#0d9488' : '#e11d48';
+    }
 
     async function syncMoneyData() {
         try {
             const res = await fetch(`${MONEY_API}?cache=${Date.now()}`);
             const data = await res.json();
+            apiOnline = true;
             let isRateChanged = false;
             if (data.buyBase && parseFloat(data.buyBase) !== SETTINGS.buyBase) { SETTINGS.buyBase = parseFloat(data.buyBase); isRateChanged = true; }
             if (data.sellBase && parseFloat(data.sellBase) !== SETTINGS.sellBase) { SETTINGS.sellBase = parseFloat(data.sellBase); isRateChanged = true; }
-            
-            const statusLight = document.getElementById('status-light');
-            statusLight.innerHTML = 'Live'; statusLight.style.color = '#0d9488';
             if (isRateChanged && lastActiveInput) { lastActiveInput.dispatchEvent(new Event('input')); }
         } catch (e) {
-            const statusLight = document.getElementById('status-light');
-            statusLight.innerHTML = 'Offline'; statusLight.style.color = '#e11d48';
+            apiOnline = false;
         }
     }
-    syncMoneyData(); setInterval(syncMoneyData, 1000);
+
+    updateLiveClock();
+    setInterval(updateLiveClock, 1000);
+    
+    syncMoneyData(); 
+    setInterval(syncMoneyData, 1000);
 
     const format = (v, isTyping = false) => {
         if (!v && v !== 0) return "";
